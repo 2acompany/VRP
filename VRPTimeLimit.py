@@ -1,19 +1,7 @@
-#!/usr/bin/env python3
-# Copyright 2010-2022 Google LLC
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 # [START program]
 """Vehicles Routing Problem (VRP)."""
+"""Time Matrix Has Generated Randomly """
 
 # [START import]
 from ortools.constraint_solver import routing_enums_pb2
@@ -42,10 +30,10 @@ def print_solution(manager, routing, solution):
         print(plan_output)
         max_route_distance = max(route_distance, max_route_distance)
     print('Maximum of the route distances: {}m'.format(max_route_distance))
-    # [END solution_printer]
+# [END solution_printer]
 
 
-# [START solution_printer]
+# [START Route solution]
 def get_solution_routes(manager, routing, solution):
     """Returns the solution routes for each vehicle."""
     routes = []
@@ -58,47 +46,44 @@ def get_solution_routes(manager, routing, solution):
         route.append(manager.IndexToNode(index))
         routes.append(route)
     return routes
-# [END solution_printer]
+# [END Route solution]
 
 # Generate a time matrix for the locations
 # Set the number of locations to 20
 num_locations = 20
+def create_data_time_matrix():
+    time_matrix = []
+    for i in range(num_locations):
+        row = []
+        for j in range(num_locations):
+            if i == j:
+                # Set the diagonal elements to 0 (travel time from a location to itself is 0)
+                row.append(0)
+            else:
+                # Generate a random travel time between 1 and 100
+                row.append(random.randint(1, 100))
+        time_matrix.append(row)
 
-time_matrix = []
-for i in range(num_locations):
-    row = []
-    for j in range(num_locations):
-        if i == j:
-            # Set the diagonal elements to 0 (travel time from a location to itself is 0)
-            row.append(0)
-        else:
-            # Generate a random travel time between 1 and 100
-            row.append(random.randint(1, 100))
-    time_matrix.append(row)
-
-    # Print the time matrix
-    print(time_matrix)
+        # Print the time matrix
+        print(time_matrix)
+        return time_matrix
 
 # [START data]
 num_locations = 20
-n_nodes=20
 num_vehicles = 5
 depot = 0
-time_matrix
+
 # [END data]
 
-
+# [START create data model ]
 def create_data_model():
     """Stores the data for the problem."""
     data = {}
-    data['distance_matrix'] = time_matrix
-    #data['pickup_delivery'] = [(i + 1, n_nodes + i + 1) for i in range(n_nodes)]
-    #data['vehicle_capacities'] = [vehicle_capacity] * n_vehicles
-    #data['pickup_capacities'] = [pickup_capacity] * n_nodes
-    #data['delivery_capacities'] = [delivery_capacity] * n_nodes
+    data['distance_matrix'] = create_data_time_matrix()
     data['num_vehicles'] = num_vehicles
     data['depot'] = depot
     return data
+# [END create data model]
 
 def main():
     """Solve the CVRP problem."""
