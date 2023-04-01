@@ -48,10 +48,10 @@ def get_solution_routes(manager, routing, solution):
     return routes
 # [END Route solution]
 
+
+
 # Generate a time matrix for the locations
-# Set the number of locations to 20
-num_locations = 20
-def create_data_time_matrix():
+def create_data_time_matrix(num_locations):
     time_matrix = []
     for i in range(num_locations):
         row = []
@@ -61,35 +61,30 @@ def create_data_time_matrix():
                 row.append(0)
             else:
                 # Generate a random travel time between 1 and 100
-                row.append(random.randint(1, 100))
+                row.append(random.randint(100, 1000))
         time_matrix.append(row)
 
         # Print the time matrix
         print(time_matrix)
-        return time_matrix
+    return time_matrix
 
-# [START data]
-num_locations = 20
-num_vehicles = 5
-depot = 0
-
-# [END data]
 
 # [START create data model ]
-def create_data_model():
+def create_data_model(num_locations, num_vehicles, depot):
     """Stores the data for the problem."""
     data = {}
-    data['distance_matrix'] = create_data_time_matrix()
+    data['distance_matrix'] = create_data_time_matrix(num_locations)
     data['num_vehicles'] = num_vehicles
     data['depot'] = depot
     return data
 # [END create data model]
 
-def main():
+def main(num_locations, num_vehicles, depot):
     """Solve the CVRP problem."""
+    route=[]
     # Instantiate the data problem.
     # Create the data model.
-    data = create_data_model()
+    data = create_data_model(num_locations, num_vehicles, depot)
 
     # Create the routing index manager.
     # [START index_manager]
@@ -148,7 +143,10 @@ def main():
     # [START solve]
     solution = routing.SolveWithParameters(search_parameters)
     # [END solve]
-
+    def do_nothing():
+        # This function does nothing and returns None
+        return None
+    print("There is no option for Optimal Routing! ")  # Output: None
     # Print solution on console.
     # [START print_solution]
     if solution:
@@ -156,10 +154,16 @@ def main():
         routes = get_solution_routes(manager, routing, solution)
         for i, route in enumerate(routes):
             print(f'Route for vehicle {i}: {route}')
+    else:
+        do_nothing()
+        
     # [END print_solution]
     return route
 
-
+#Sample Test The code
+num_locations =3
+num_vehicles=1
+depot=0
 if __name__ == '__main__':
-    main()
+    main(num_locations, num_vehicles, depot)   
 # [END program]

@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import json
-import VRPFuction
+import VRPTimeLimit
 
 app = FastAPI()
 
-class VRPMOdelInput(BaseModel):
+class VRPModelInput(BaseModel):
     n_nodes: int
     n_vehicles: int
     depot: list
@@ -16,7 +16,7 @@ class VRPMOdelInput(BaseModel):
     vehicle_capacity: int
 
 @app.post('/vehicle_routes')
-def vehicle_routes(data: VRPMOdelInput):
+def vehicle_routes(data: VRPModelInput):
     
     n_nodes = data.n_nodes
     
