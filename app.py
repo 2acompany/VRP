@@ -12,7 +12,7 @@ def map():
     tehran_limits = [(35.4904, 51.1424), (35.8496, 51.6814)]
 
     # Number of nodes
-    num_nodes = random.randint(2, 8)
+    num_nodes = random.randint(50, 100)
 
     # Generate random latitude and longitude coordinates for each node within Tehran city limits
     coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), 
@@ -25,15 +25,9 @@ def map():
             if i == j:
                 continue
             dist_matrix[i][j] = distance(coords[i], coords[j]).km
-
-    # Find the shortest route that visits all nodes using brute force
-    shortest_dist = float('inf')
-    shortest_route = None
-    for route in permutations(range(num_nodes)):
-        dist = sum([dist_matrix[route[i]][route[i+1]] for i in range(num_nodes-1)])
-        if dist < shortest_dist:
-            shortest_dist = dist
-            shortest_route = route
+    for row in dist_matrix:
+        print(row)
+        
 
     # Create a map centered on Tehran
     m = folium.Map(location=[35.6994, 51.3377], zoom_start=12)
@@ -42,11 +36,10 @@ def map():
     for i in range(num_nodes):
         folium.Marker(location=coords[i]).add_to(m)
 
-    # Add the shortest route to the map
-    for i in range(num_nodes-1):
-        src = shortest_route[i]
-        dst = shortest_route[i+1]
-        folium.PolyLine(locations=[coords[src], coords[dst]], color='red').add_to(m)
+    # Add polylines between the nodes
+    for i in range(num_nodes):
+        for j in range(i+1, num_nodes):
+            folium.PolyLine(locations=[coords[i], coords[j]], color='red').add_to(m)
 
     # Render the map in an HTML template
     return render_template("map.html", map=m._repr_html_())

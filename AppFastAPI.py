@@ -20,6 +20,6 @@ def vehicle_routes(data: VRPModelInput):
     
     n_nodes = data.n_nodes
     
-    VRPFuction.solve_vrp(data.n_nodes, data.n_vehicles, data._decompose_class)
+    main(data.n_nodes, data.n_vehicles, data._decompose_class)
     
 
