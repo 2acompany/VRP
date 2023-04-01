@@ -45,6 +45,21 @@ def print_solution(manager, routing, solution):
     # [END solution_printer]
 
 
+# [START solution_printer]
+def get_solution_routes(manager, routing, solution):
+    """Returns the solution routes for each vehicle."""
+    routes = []
+    for vehicle_id in range(manager.GetNumberOfVehicles()):
+        index = routing.Start(vehicle_id)
+        route = []
+        while not routing.IsEnd(index):
+            route.append(manager.IndexToNode(index))
+            index = solution.Value(routing.NextVar(index))
+        route.append(manager.IndexToNode(index))
+        routes.append(route)
+    return routes
+# [END solution_printer]
+
 # Generate a time matrix for the locations
 # Set the number of locations to 20
 num_locations = 20
@@ -153,7 +168,11 @@ def main():
     # [START print_solution]
     if solution:
         print_solution(manager, routing, solution)
+        routes = get_solution_routes(manager, routing, solution)
+        for i, route in enumerate(routes):
+            print(f'Route for vehicle {i}: {route}')
     # [END print_solution]
+    return route
 
 
 if __name__ == '__main__':
