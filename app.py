@@ -3,6 +3,7 @@ import folium
 import random
 from geopy.distance import distance
 from itertools import permutations
+from VRPTimeLimitAPI import main
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ def map():
     tehran_limits = [(35.4904, 51.1424), (35.8496, 51.6814)]
 
     # Number of nodes
-    num_nodes = random.randint(50, 100)
+    num_nodes = random.randint(3, 5)
 
     # Generate random latitude and longitude coordinates for each node within Tehran city limits
     coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), 
@@ -24,7 +25,7 @@ def map():
         for j in range(num_nodes):
             if i == j:
                 continue
-            dist_matrix[i][j] = distance(coords[i], coords[j]).km
+            dist_matrix[i][j] = int(distance(coords[i], coords[j]).km)
     for row in dist_matrix:
         print(row)
         
@@ -40,9 +41,24 @@ def map():
     for i in range(num_nodes):
         for j in range(i+1, num_nodes):
             folium.PolyLine(locations=[coords[i], coords[j]], color='red').add_to(m)
+            
+    """_summary_
+
+    Returns:
+       VRP ROutes
+       
+    """
+    #Get routes from vrp s
+    routes= main(dist_matrix, 2, 0)
+    
+    # Add polylines between the nodes in each route
+    for route in routes:
+        for i in range(len(route) - 1):
+            start_node = route[i]
+            end_node = route[i+1]
+            folium.PolyLine(locations=[coords[start_node], coords[end_node]], color='blue').add_to(m)
 
     # Render the map in an HTML template
     return render_template("map.html", map=m._repr_html_())
-
 if __name__ == "__main__":
     app.run(debug=True)
