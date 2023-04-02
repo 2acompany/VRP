@@ -1,4 +1,5 @@
 import VRPTimeLimitAPI
+import VRPTimeLimitAPIRandom
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -15,7 +16,13 @@ class VRPModelInput(BaseModel):
     num_vehicles: int
     depot: int
 
-@app.post('/vehicle_routes', response_model=list)
+
+class VRPModelInputRandomLocation(BaseModel):
+    num_locations: int
+    num_vehicles: int
+    depot: int
+
+@app.post('/vehicle_routes', response_model=dict)
 def vehicle_routes(data: VRPModelInput):
     """
     Solve the Vehicle Routing Problem using time limits.
@@ -38,6 +45,27 @@ def vehicle_routes(data: VRPModelInput):
     routes = VRPTimeLimitAPI.main(distance_matrix, num_vehicles, depot)
     return {"routes": routes}
 
+@app.post('/vehicle_routes_random_location', response_model=dict)
+def vehicle_routes_random_location(data: VRPModelInputRandomLocation):
+    """
+    Solve the Vehicle Routing Problem using time limits.
 
+    Given a Number of location, the number of vehicles available, and a depot location,
+    this endpoint uses the VRPTimeLimitAPI library to generate a set of vehicle routes
+    that minimize total travel time, subject to a time limit for each route.
+
+    **Input**
+    - `num_locations`: The number of Locations Ramdomly Generated on map for routing.
+    - `num_vehicles`: The number of vehicles available for routing.
+    - `depot`: The location ID of the depot.
+
+    **Output**
+    - `routes`: A list of lists representing the vehicle routes.
+    """
+    num_locations = data.num_locations
+    num_vehicles = data.num_vehicles
+    depot = 0
+    routes = VRPTimeLimitAPIRandom.main(num_locations, num_vehicles, depot)
+    return {"routes": routes}
 #run this in console 
 #uvicorn AppFastAPI:app --reload

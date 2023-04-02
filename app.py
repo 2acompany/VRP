@@ -17,7 +17,7 @@ def map():
     tehran_limits = [(35.4904, 51.1424), (35.8496, 51.6814)]
 
     # Number of nodes
-    num_nodes = random.randint(10, 10)
+    num_nodes = random.randint(50, 50)
 
     # Generate random latitude and longitude coordinates for each node within Tehran city limits
     coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), 
@@ -34,7 +34,7 @@ def map():
         print(row)
         
     #Get routes from vrp solution
-    routes= main(dist_matrix, 2, 0)
+    routes= main(dist_matrix, 5, 0)
 
     # Create a map centered on Tehran
     m = folium.Map(location=[35.6994, 51.3377], zoom_start=9)
@@ -48,7 +48,7 @@ def map():
     # Add polylines between the nodes
     for i in range(num_nodes):
         for j in range(i+1, num_nodes):
-            folium.PolyLine(locations=[coords[i], coords[j]], color='red' ,opacity=0.01).add_to(m)
+            folium.PolyLine(locations=[coords[i], coords[j]], color='red' ,opacity=0).add_to(m)
  
 
  
@@ -73,6 +73,6 @@ def map():
 
     # Render the map in an HTML template
     return render_template("map.html", map=m._repr_html_())
-map()
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,39 +9,61 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 import random
 import math
+from geopy.distance import distance
+from itertools import permutations
 # [END import]
 
-def get_time_matrix(locations):
-    def haversine_distance(loc1, loc2):
-        lat1, lon1 = loc1
-        lat2, lon2 = loc2
-        # Convert latitude and longitude to radians
-        lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+# def get_time_matrix(locations):
+#     def haversine_distance(loc1, loc2):
+#         lat1, lon1 = loc1
+#         lat2, lon2 = loc2
+#         # Convert latitude and longitude to radians
+#         lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
 
-        # Haversine formula
-        dlat = lat2 - lat1
-        dlon = lon2 - lon1
-        a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
-        c = 2 * math.asin(math.sqrt(a))
-        r = 6371  # Radius of earth in kilometers
-        return c * r
+#         # Haversine formula
+#         dlat = lat2 - lat1
+#         dlon = lon2 - lon1
+#         a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+#         c = 2 * math.asin(math.sqrt(a))
+#         r = 6371  # Radius of earth in kilometers
+#         return c * r
 
     # Create the time matrix using haversine distance formula
-    n_nodes = len(locations)
-    time_matrix = []
-    for i in range(n_nodes):
-        row = []
-        for j in range(n_nodes):
-            if i == j:
-                row.append(0)
-            else:
-                dist = haversine_distance(locations[i], locations[j])
-                time = dist / 50  # Assuming average speed of 50 km/h
-                time = int(time * 60) # Convert time to minutes
-                row.append(time)
-        time_matrix.append(row)
+    # n_nodes = len(locations)
+    # time_matrix = []
+    # for i in range(n_nodes):
+    #     row = []
+    #     for j in range(n_nodes):
+    #         if i == j:
+    #             row.append(0)
+    #         else:
+    #             dist = haversine_distance(locations[i], locations[j])
+    #             time = dist / 50  # Assuming average speed of 50 km/h
+    #             time = int(time * 60) # Convert time to minutes
+    #             row.append(time)
+    #     time_matrix.append(row)
+def get_time_matrix(num_locations):
+    # Define the latitude and longitude bounds for Tehran city limits
+    tehran_limits = [(35.4904, 51.1424), (35.8496, 51.6814)]
 
-    return time_matrix
+    # Number of nodes
+    num_nodes = random.randint(num_locations, num_locations)
+
+    # Generate random latitude and longitude coordinates for each node within Tehran city limits
+    coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), 
+               random.uniform(tehran_limits[0][1], tehran_limits[1][1])) for _ in range(num_nodes)]
+
+    # Calculate the distance matrix between the nodes
+    dist_matrix = [[0] * num_nodes for _ in range(num_nodes)]
+    for i in range(num_nodes):
+        for j in range(num_nodes):
+            if i == j:
+                continue
+            dist_matrix[i][j] = int(distance(coords[i], coords[j]).km)
+    for row in dist_matrix:
+        print(row)
+    return dist_matrix
+
 # [START solution_printer]
 def print_solution(manager, routing, solution):
     """Prints solution on console."""
@@ -81,42 +103,42 @@ def get_solution_routes(manager, routing, solution):
 # [END Route solution]
 
 
-# # Generate a time matrix for the locations
-# def create_data_time_matrix(num_locations):
-#     time_matrix = []
-#     for i in range(num_locations):
-#         row = []
-#         for j in range(num_locations):
-#             if i == j:
-#                 # Set the diagonal elements to 0 (travel time from a location to itself is 0)
-#                 row.append(0)
-#             else:
-#                 # Generate a random travel time between 1 and 100
-#                 row.append(random.randint(100, 1000))
-#         time_matrix.append(row)
+# Generate a time matrix for the locations
+def create_data_time_matrix(num_locations):
+    time_matrix = []
+    for i in range(num_locations):
+        row = []
+        for j in range(num_locations):
+            if i == j:
+                # Set the diagonal elements to 0 (travel time from a location to itself is 0)
+                row.append(0)
+            else:
+                # Generate a random travel time between 1 and 100
+                row.append(random.randint(100, 1000))
+        time_matrix.append(row)
 
-#         # Print the time matrix
-#         print(time_matrix)
-#     return time_matrix
+        # Print the time matrix
+        print(time_matrix)
+    return time_matrix
 
 
 # [START create data model ]
-def create_data_model(distance_matrix, num_vehicles, depot):
+def create_data_model(num_locations, num_vehicles, depot):
     """Stores the data for the problem."""
     data = {}
-    data['distance_matrix'] = distance_matrix
+    data['distance_matrix'] = get_time_matrix(num_locations)
     data['num_vehicles'] = num_vehicles
     data['depot'] = depot
     return data
 # [END create data model]
 
 
-def main(distance_matrix, num_vehicles, depot):
+def main(num_locations, num_vehicles, depot):
     """Solve the CVRP problem."""
     route = [[]]
     # Instantiate the data problem.
     # Create the data model.
-    data = create_data_model(distance_matrix, num_vehicles, depot)
+    data = create_data_model(num_locations, num_vehicles, depot)
 
     # Create the routing index manager.
     # [START index_manager]
@@ -153,7 +175,7 @@ def main(distance_matrix, num_vehicles, depot):
     routing.AddDimension(
         transit_callback_index,
         0,  # no slack
-        150,  # vehicle maximum travel distance
+        480,  # vehicle maximum Minutes working
         True,  # start cumul to zero
         dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
@@ -195,15 +217,9 @@ def main(distance_matrix, num_vehicles, depot):
 
 
 # Sample Test The code
-locations = [(35.7262191, 51.5617297),  # Tehran 01
-                   (35.738501, 51.479981),  # Tehran 02
-                   (35.733694, 51.536736),  # Tehran 03
-                   (35.748602, 51.553323),  # Tehran 04
-                   (35.724165, 51.524634)]  # Tehran 05
-
-distance_matrix= get_time_matrix(locations)
+num_locations=5
 num_vehicles = 2
 depot = 0
 if __name__ == '__main__':
-    main(distance_matrix, num_vehicles, depot)
+    main(num_locations, num_vehicles, depot)
 # [END program]
