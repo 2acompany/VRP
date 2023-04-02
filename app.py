@@ -1,11 +1,15 @@
+import random
+import sys
 from flask import Flask, render_template
 import folium
-import random
 from geopy.distance import distance
 from itertools import permutations
 from VRPTimeLimitAPI import main
+import datetime
 
 app = Flask(__name__)
+
+
 
 @app.route("/")
 def map():
@@ -13,7 +17,7 @@ def map():
     tehran_limits = [(35.4904, 51.1424), (35.8496, 51.6814)]
 
     # Number of nodes
-    num_nodes = random.randint(3, 5)
+    num_nodes = random.randint(10, 10)
 
     # Generate random latitude and longitude coordinates for each node within Tehran city limits
     coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), 
@@ -29,36 +33,46 @@ def map():
     for row in dist_matrix:
         print(row)
         
+    #Get routes from vrp solution
+    routes= main(dist_matrix, 2, 0)
 
     # Create a map centered on Tehran
-    m = folium.Map(location=[35.6994, 51.3377], zoom_start=12)
+    m = folium.Map(location=[35.6994, 51.3377], zoom_start=9)
+    m.add_child(folium.LatLngPopup())
 
-    # Add markers for each node to the map
-    for i in range(num_nodes):
-        folium.Marker(location=coords[i]).add_to(m)
+    # Add the cartodbdark_matter tile layer to the map
+    folium.TileLayer('cartodbdark_matter').add_to(m)
+
+    
 
     # Add polylines between the nodes
     for i in range(num_nodes):
         for j in range(i+1, num_nodes):
-            folium.PolyLine(locations=[coords[i], coords[j]], color='red').add_to(m)
-            
-    """_summary_
+            folium.PolyLine(locations=[coords[i], coords[j]], color='red' ,opacity=0.01).add_to(m)
+ 
 
-    Returns:
-       VRP ROutes
-       
-    """
-    #Get routes from vrp s
-    routes= main(dist_matrix, 2, 0)
-    
-    # Add polylines between the nodes in each route
+ 
+        
+    #diffrent random color for each poly line and marker
     for route in routes:
+        color = '#' + ''.join(random.choice('0123456789ABCDEF') for i in range(6))
         for i in range(len(route) - 1):
             start_node = route[i]
             end_node = route[i+1]
-            folium.PolyLine(locations=[coords[start_node], coords[end_node]], color='blue').add_to(m)
+            folium.PolyLine(locations=[coords[start_node], coords[end_node]], color=color).add_to(m)
+            folium.Marker(location=coords[start_node], icon=folium.Icon(icon='star', color=color,tooltip=f'Node {i}')).add_to(m)
+
+
+            
+    # Add markers for the Depot
+    for i in range(1):
+        color = 'green' if i == 0 else 'blue'  # Choose color based on node index
+        folium.Marker(location=coords[i], icon=folium.Icon(color=color, icon='info-sign'), tooltip=f'Node {i}', icon_size=(8, 8)).add_to(m)
+
+   
 
     # Render the map in an HTML template
     return render_template("map.html", map=m._repr_html_())
+map()
 if __name__ == "__main__":
     app.run(debug=True)
