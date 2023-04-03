@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\GoogleDrive-Behrangaghili1980\01- Personal\03 software engineer\شهید بهشتی\Thesis and Dissertation\Development\ORToolsTravelingSalespersonProblem\env"
+VIRTUAL_ENV="D:\VRPModel\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

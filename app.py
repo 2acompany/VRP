@@ -17,71 +17,71 @@ import VRPTimeLimitAPIRandom
 app = Flask(__name__)
 CORS(app)
 
-app = FastAPI(
-    title="Vehicle Routing Problem API",
-    description="API for solving Vehicle Routing Problem using time limits.",
-    version="1.0",
-    docs_url="/swagger",
-    redoc_url="/redoc",
-)
+# app = FastAPI(
+#     title="Vehicle Routing Problem API",
+#     description="API for solving Vehicle Routing Problem using time limits.",
+#     version="1.0",
+#     docs_url="/swagger",
+#     redoc_url="/redoc",
+# )
 
-# Serve Swagger UI from the '/docs' route
-app.mount("/docs", StaticFiles(directory="swagger-ui"), name="docs")
-@app.get("/docs", response_class=HTMLResponse)
-async def read_docs():
-    return """
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>VRP API - Swagger UI</title>
-            <link rel="stylesheet" type="text/css" href="/docs/swagger-ui.css">
-            <script src="/docs/swagger-ui-bundle.js"></script>
-            <script src="/docs/swagger-ui-standalone-preset.js"></script>
-        </head>
-        <body>
-            <div id="swagger-ui"></div>
-            <script>
-                const ui = SwaggerUIBundle({
-                    url: "/openapi.json",
-                    dom_id: '#swagger-ui',
-                    presets: [
-                        SwaggerUIBundle.presets.apis,
-                        SwaggerUIStandalonePreset
-                    ],
-                    layout: "BaseLayout",
-                    deepLinking: true,
-                })
-            </script>
-        </body>
-    </html>
-    """
+# # Serve Swagger UI from the '/docs' route
+# app.mount("/docs", StaticFiles(directory="swagger-ui"), name="docs")
+# @app.get("/docs", response_class=HTMLResponse)
+# async def read_docs():
+#     return """
+#     <!DOCTYPE html>
+#     <html>
+#         <head>
+#             <title>VRP API - Swagger UI</title>
+#             <link rel="stylesheet" type="text/css" href="/docs/swagger-ui.css">
+#             <script src="/docs/swagger-ui-bundle.js"></script>
+#             <script src="/docs/swagger-ui-standalone-preset.js"></script>
+#         </head>
+#         <body>
+#             <div id="swagger-ui"></div>
+#             <script>
+#                 const ui = SwaggerUIBundle({
+#                     url: "/openapi.json",
+#                     dom_id: '#swagger-ui',
+#                     presets: [
+#                         SwaggerUIBundle.presets.apis,
+#                         SwaggerUIStandalonePreset
+#                     ],
+#                     layout: "BaseLayout",
+#                     deepLinking: true,
+#                 })
+#             </script>
+#         </body>
+#     </html>
+#     """
 
 # Serve ReDoc from the '/redoc' route
-app.mount("/redoc", StaticFiles(directory="redoc"), name="redoc")
-@app.get("/redoc", response_class=HTMLResponse)
-async def read_redoc():
-    return """
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>VRP API - ReDoc</title>
-            <link rel="stylesheet" type="text/css" href="/redoc/redoc.css">
-            <script src="/redoc/redoc.standalone.js"></script>
-        </head>
-        <body>
-            <redoc spec-url='/openapi.json'></redoc>
-        </body>
-    </html>
-    """
+# app.mount("/redoc", StaticFiles(directory="redoc"), name="redoc")
+# @app.get("/redoc", response_class=HTMLResponse)
+# async def read_redoc():
+#     return """
+#     <!DOCTYPE html>
+#     <html>
+#         <head>
+#             <title>VRP API - ReDoc</title>
+#             <link rel="stylesheet" type="text/css" href="/redoc/redoc.css">
+#             <script src="/redoc/redoc.standalone.js"></script>
+#         </head>
+#         <body>
+#             <redoc spec-url='/openapi.json'></redoc>
+#         </body>
+#     </html>
+#     """
 
 # Configure CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 class VRPModelInput(BaseModel):
     distance_matrix: list
     num_vehicles: int
@@ -204,7 +204,10 @@ def map():
     return render_template("map.html", map=m._repr_html_())
 
 if __name__ == "__main__":
-    app.run(debug=True,  port=8000)
+    app.run(debug=True,  port=5000)
+    
+    
+    
 #To run this in console 
 #flask run
 #python -m venv env
