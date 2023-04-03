@@ -1,29 +1,24 @@
 import VRPTimeLimitAPI
 import VRPTimeLimitAPIRandom
-from fastapi import FastAPI
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from pydantic import BaseModel
 
-app = FastAPI(
-    title="Vehicle Routing Problem API",
-    description="API for solving Vehicle Routing Problem using time limits.",
-    version="1.0",
-    docs_url="/swagger",
-    redoc_url="/redoc",
-)
+app = Flask(__name__)
+CORS(app)
 
 class VRPModelInput(BaseModel):
     distance_matrix: list
     num_vehicles: int
     depot: int
 
-
 class VRPModelInputRandomLocation(BaseModel):
     num_locations: int
     num_vehicles: int
     depot: int
 
-@app.post('/vehicle_routes', response_model=dict)
-def vehicle_routes(data: VRPModelInput):
+@app.route('/vehicle_routes', methods=['POST'])
+def vehicle_routes():
     """
     Solve the Vehicle Routing Problem using time limits.
 
@@ -39,14 +34,15 @@ def vehicle_routes(data: VRPModelInput):
     **Output**
     - `routes`: A list of lists representing the vehicle routes.
     """
-    distance_matrix = data.distance_matrix
-    num_vehicles = data.num_vehicles
+    data = request.json
+    distance_matrix = data['distance_matrix']
+    num_vehicles = data['num_vehicles']
     depot = 0
     routes = VRPTimeLimitAPI.main(distance_matrix, num_vehicles, depot)
-    return {"routes": routes}
+    return jsonify({"routes": routes})
 
-@app.post('/vehicle_routes_random_location', response_model=dict)
-def vehicle_routes_random_location(data: VRPModelInputRandomLocation):
+@app.route('/vehicle_routes_random_location', methods=['POST'])
+def vehicle_routes_random_location():
     """
     Solve the Vehicle Routing Problem using time limits.
 
@@ -62,11 +58,16 @@ def vehicle_routes_random_location(data: VRPModelInputRandomLocation):
     **Output**
     - `routes`: A list of lists representing the vehicle routes.
     """
-    num_locations = data.num_locations
-    num_vehicles = data.num_vehicles
+    data = request.json
+    num_locations = data['num_locations']
+    num_vehicles = data['num_vehicles']
     depot = 0
     routes = VRPTimeLimitAPIRandom.main(num_locations, num_vehicles, depot)
-    return {"routes": routes}
+    return jsonify({"routes": routes})
+
+if __name__ == '__main__':
+    app.run(debug=True,  port=8000)
+
 #run this in console 
 #uvicorn AppFastAPI:app --reload
 #python -m venv env
