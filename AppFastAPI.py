@@ -69,3 +69,10 @@ def vehicle_routes_random_location(data: VRPModelInputRandomLocation):
     return {"routes": routes}
 #run this in console 
 #uvicorn AppFastAPI:app --reload
+#python -m venv env
+#env\Scripts\activate.bat
+#pip install Flask and all other dependencies
+#pip freeze > requirements.txt - To create the file, run this
+#pip install -r requirements.txt- This will install all the packages listed in the requirements.txt file and their dependencies.
+#env\Scripts\deactivate.bat - This command will deactivate the virtual environment and restore your system's original PATH
+#python AppFastAPI.py - To run Code

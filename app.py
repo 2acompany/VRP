@@ -1,11 +1,9 @@
-import random
-import sys
 from flask import Flask, render_template
+import random
 import folium
 from geopy.distance import distance
 from itertools import permutations
 from VRPTimeLimitAPI import main
-import datetime
 
 app = Flask(__name__)
 
