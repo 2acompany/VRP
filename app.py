@@ -209,7 +209,7 @@ if __name__ == "__main__":
     
     
 #To run this in console 
-#flask run
+#python app.py
 #python -m venv env
 #env\Scripts\activate.bat
 #pip install Flask, ...... and all other dependencies
