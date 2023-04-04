@@ -51,7 +51,7 @@ def map():
     m = folium.Map(location=[35.6994, 51.3377], zoom_start=9)
     m.add_child(folium.LatLngPopup())
 
-    # Add the cartodbdark_matter tile layer to the map
+    # Add the cartodbdark_matter tile layer to the map.
     #folium.TileLayer('cartodbdark_matter').add_to(m)
 
     # Add polylines between the nodes
