@@ -1,3 +1,6 @@
 /env
 /__pycache__
+/nssm-2.24
+/logs
+
 GitIgnorTest

@@ -79,9 +79,3 @@ if __name__ == '__main__':
 #python AppFastAPI.py - To run Code
 
 
-#git commands
-#git pull
-#git rm -rf --cached .
-#git add .
-#git commit -m "name of commit "
-#git push
