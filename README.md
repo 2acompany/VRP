@@ -19,7 +19,8 @@ incase you are using global dependencies
 without virtual environment
 #pip install Flask, ...... and all other dependencies listed on requirements.txt
 
-
+#some tips 
+py -m pip --timeout=1000 install -U scikit-learn 
 
 # install git from https://git-scm.com/downloads
 
