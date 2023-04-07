@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 # set parameters
-num_locs = 500
+num_locs = 40
 power_law_param = 2.5
-max_distance = 10
+max_distance = 1
 demand_mean = 10
 demand_std = 3
 vehicle_capacity = 50
@@ -59,3 +59,87 @@ plt.show()
 
 print(f"Number of clusters: {num_clusters}")
 print(f"Number of vehicles needed: {num_vehicles}")
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from scipy.spatial.distance import cdist
+
+def get_clusters(num_clusters, num_locations, power_low_alpha, max_distance, demand_per_location, vehicle_capacity):
+    # Generate random locations
+    locations = np.random.power(power_low_alpha, size=(num_locations, 2))
+
+    # Calculate pairwise distances between locations
+    distances = cdist(locations, locations)
+
+    # Set diagonal elements to a large value to avoid selecting the same location as a neighbor
+    np.fill_diagonal(distances, np.inf)
+
+    # Find neighbors for each location
+    neighbors = np.argsort(distances, axis=1)[:, :10]
+
+    # Find outlier locations that are more than max_distance away from any other location
+    max_distances = np.max(distances, axis=1)
+    outliers = np.where(max_distances > max_distance)[0]
+
+    # Set first location as the depot
+    depot_index = 0
+
+    # Initialize list to store cluster assignments for each location
+    cluster_assignments = np.zeros(num_locations, dtype=int)
+
+    # Initialize list to store cluster boundaries
+    cluster_boundaries = []
+
+    # Initialize list to store vehicle assignments for each cluster
+    cluster_vehicles = []
+
+    # Cluster locations using KMeans algorithm
+    kmeans = KMeans(n_clusters=num_clusters, n_init=10).fit(locations)
+
+
+    # Assign each location to its nearest cluster
+    for i, label in enumerate(kmeans.labels_):
+        cluster_assignments[i] = label
+
+    # Find the boundaries of each cluster
+    for i in range(num_clusters):
+        cluster_boundary = locations[cluster_assignments == i]
+        cluster_boundaries.append(cluster_boundary)
+        # Find the number of vehicles required for this cluster
+        cluster_demand = np.sum(demand_per_location[cluster_assignments == i])
+        num_vehicles = int(np.ceil(cluster_demand / vehicle_capacity))
+        cluster_vehicles.append(num_vehicles)
+
+    # Plot the locations and cluster boundaries
+    colors = ['r', 'g', 'b', 'c', 'm', 'y']
+    fig, ax = plt.subplots()
+    for i in range(num_clusters):
+        ax.scatter(cluster_boundaries[i][:, 0], cluster_boundaries[i][:, 1], color=colors[i % len(colors)])
+        ax.plot(cluster_boundaries[i][:, 0], cluster_boundaries[i][:, 1], color=colors[i % len(colors)])
+    ax.scatter(locations[outliers][:, 0], locations[outliers][:, 1], color='k')
+    ax.set_aspect('equal')
+    plt.show()
+
+    # Print the outlier locations
+    print("Outlier locations:")
+    print(locations[outliers])
+
+    # Print the locations in each cluster
+    for i in range(num_clusters):
+        print(f"Cluster {i} locations:")
+        print(cluster_boundaries[i])
+
+    # Print the distances between locations
+    print("Distances between locations:")
+    print(distances)
+
+    # Print the number of vehicles required for each cluster
+    print("Vehicles per cluster:")
+    print(cluster_vehicles)
+
+    return cluster_boundaries, cluster_vehicles, distances, locations[outliers]
+
+# calculate demand at each location
+demand_per_location = np.random.normal(loc=demand_mean, scale=demand_std, size=num_locs)
+get_clusters(num_clusters, num_locs, power_law_param, max_distance, demand_per_location, vehicle_capacity)

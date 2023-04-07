@@ -4,4 +4,4 @@
 /nssm-2.24
 /logs
 
-GitIgnorTest
+GitIgnorTest.txt
