@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 # set parameters
-num_locs = 40
+num_locs = 500
 power_law_param = 2.5
 max_distance = 1
 demand_mean = 10
 demand_std = 3
-vehicle_capacity = 50
+vehicle_capacity = 150
 
 # generate random locations distributed by power-law
 x = np.random.power(power_law_param, size=num_locs)
