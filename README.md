@@ -32,6 +32,7 @@ py -m pip --timeout=1000 install -U scikit-learn
 
 #git pull
 #git rm -rf --cached .
+#git rm -r --cached __pycache__/
 #git add .
 #git commit -m "name of commit "
 #git push
