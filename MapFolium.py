@@ -31,7 +31,7 @@ def map():
     #tehran_limits = [(25.0644, 44.0328), (39.7828, 63.3167)]
 
     # Number of nodes
-    num_nodes = random.randint(50, 50)
+    num_nodes = random.randint(50, 250)
 
     # Generate random latitude and longitude coordinates for each node within Tehran city limits
     coords = [(random.uniform(tehran_limits[0][0], tehran_limits[1][0]), random.uniform(tehran_limits[0][1], tehran_limits[1][1])) for _ in range(num_nodes)]
