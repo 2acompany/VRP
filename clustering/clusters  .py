@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 # set parameters
-num_locs = 500
+num_locs = 2000
 power_law_param = 2.5
 max_distance = 1
 demand_mean = 10

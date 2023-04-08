@@ -153,7 +153,7 @@ def main(distance_matrix, num_vehicles, depot):
     routing.AddDimension(
         transit_callback_index,
         0,  # no slack
-        30,  # vehicle maximum travel distance
+        300,  # vehicle maximum travel distance
         True,  # start cumul to zero
         dimension_name)
     distance_dimension = routing.GetDimensionOrDie(dimension_name)
@@ -178,8 +178,8 @@ def main(distance_matrix, num_vehicles, depot):
 
     def do_nothing():
         # This function does nothing and returns None
-        return None
-    print("There is no option for Optimal Routing! ")  # Output: None
+        return [[]]
+    print("There is no option for Optimal Routing! Please check distances or operation time of vehicles  ")  # Output: None
     # Print solution on console.
     # [START print_solution]
     if solution:
@@ -187,11 +187,11 @@ def main(distance_matrix, num_vehicles, depot):
         routes = get_solution_routes(manager, routing, solution)
         for i, route in enumerate(routes):
             print(f'Route for vehicle {i}: {route}')
+        return routes
     else:
         do_nothing()
 
     # [END print_solution]
-    return routes
 
 
 # Sample Test The code
