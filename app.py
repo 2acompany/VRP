@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from geopy.distance import distance
 from itertools import permutations
 from pydantic import BaseModel
@@ -15,6 +15,7 @@ import MapFolium
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 class VRPModelInput(BaseModel):
     distance_matrix: list
@@ -27,6 +28,7 @@ class VRPModelInputRandomLocation(BaseModel):
     depot: int
     
 @app.route('/vehicle_routes', methods=['POST'])
+@cross_origin()
 def vehicle_routes():
     data = request.json
     distance_matrix = data['distance_matrix']
@@ -36,6 +38,7 @@ def vehicle_routes():
     return jsonify({"routes": routes})
 
 @app.route('/vehicle_routes_random_location', methods=['POST'])
+@cross_origin()
 def vehicle_routes_random_location():
 
     data = request.json
@@ -46,6 +49,7 @@ def vehicle_routes_random_location():
     return jsonify({"routes": routes})
     
 @app.route("/randomnodes")
+@cross_origin()
 def map():
     return MapFolium.map()
 
