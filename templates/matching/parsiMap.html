@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>بهینه سازی مسیر</title>
+	
+	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/fontawesome/all.min.css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+	
+	<script src="https://cdn.parsimap.ir/third-party/leaflet/v1.7.1/leaflet.js"></script>
+	<link
+			href="https://cdn.parsimap.ir/third-party/leaflet/v1.7.1/mapbox-gl.css"
+			rel="stylesheet"
+	/>
+
+</head>
+<body>
+	
+	<div class="main-page">
+		<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary mb-5">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+								aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!--				<div class="switch-map">-->
+				<!--					<label>نشان</label>-->
+				<!--					<div class="form-check form-switch">-->
+				<!--						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>-->
+				<!--					</div>-->
+				<!--					<label>پارسی مپ</label>-->
+				<!--				</div>-->
+				
+				<a  href="./../matching/neshan.html">نشان</a>
+			
+			</div>
+		</nav>
+		
+		<div class="container">
+<!--			<div class="api-key">-->
+<!--				<div class="row">-->
+<!--					<div class="col-12 col-lg-6">-->
+<!--						<input type="text" placeholder="api key">-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;light">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>اضافه کردن</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;primary">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>آپلود اکسل</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+			
+			<div class="desc">
+				<p>مسیریابی برای وسایل نقلیه متفاوت دارای خروجی های متفاوتی است. شما می توانید این دو نوع مسیریابی برای خودرو و موتور سیکلت را بررسی نمایید. </p>
+			</div>
+			
+			
+			<div class="list-btn-matching">
+				<div class="btn--yellow">
+					<button class="btn-fill" onclick="car()">
+						<span>خودرو</span>
+					</button>
+				</div>
+				
+				<div class="btn--primary">
+					<button class="btn-fill" onclick="motor()">
+						<span>موتورسیکلت</span>
+					</button>
+				</div>
+			</div>
+			
+			
+			<div class="map" id="mapMatching"></div>
+		
+		</div>
+	</div>
+	
+	
+	<script src="./../assets/js/jquery.min.js"></script>
+	<!--	<script type="text/javascript" src="./src/assets/js/map.js"></script>-->
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
+	
+	<script src="https://cdn.parsimap.ir/third-party/leaflet/plugins/parsimap-tile/v1.0.0/parsimap-tile.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+	
+	<script>
+    //init the map
+
+    let latCenter = 35.699739
+    let lngCenter = 51.338097
+
+    var map = new L.Map('mapMatching', {
+      center: [latCenter, lngCenter],
+      zoom: 14
+    });
+
+    L.parsimapTileLayer('parsimap-streets-v11-raster', {
+      key: 'p1a17b4952e44846b5a486861f1f7c9153c49fdb24',
+    }).addTo(map)
+
+
+    const points = [
+      [35.699839645209224, 51.34494781494141, "point 1"],
+      [35.69970024143059, 51.330442428588874, "point 2"],
+      [35.699839645209224, 51.34494781494141, "point 3"],
+      [35.70137307068854, 51.331214904785156, "point 4"],
+    ];
+
+    function car (){
+			
+      L.Routing.control({
+        waypoints: [
+          L.latLng(points[0][0], points[0][1]),
+          L.latLng(points[1][0], points[1][1]),
+        ],
+        draggableWaypoints: false,
+        routeWhileDragging: false,
+        addWaypoints: false,
+        lineOptions: {
+          addWaypoints: false,
+          styles: [{color: '#F7941D', opacity: 0.5}]
+        },
+        createMarker: function (i, waypoint, n) {
+          return  L.marker(waypoint.latLng, {
+            icon:  (i === 0) ? L.divIcon({
+              html: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="30" height="30" x="0" y="0" viewBox="0 0 450 450" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><path fill="#acd5df" d="m248.5 255.475-15 15.784v193.743a51.21 51.21 0 0 0 8.825 28.741c2.944 4.342 9.406 4.342 12.351 0a51.21 51.21 0 0 0 8.825-28.741V271.259z" data-original="#acd5df" ></path><path fill="#93b7c0" d="M233.5 212v59.259c4.935.487 9.938 0 15 0s10.065.487 15 0V212z" data-original="#93b7c0"></path><path fill="#cc3245" d="M248.5 0v242c66.826 0 121-54.174 121-121S315.326 0 248.5 0z" data-original="#cc3245"></path><path fill="#ff3e3a" d="M339.5 121c0-66.826-40.742-121-91-121-66.826 0-121 54.174-121 121s54.174 121 121 121c50.258 0 91-54.174 91-121z" data-original="#ff3e3a"></path></g></svg>',
+              className: "",
+              // iconSize: [30, 80],
+              iconAnchor: [0, 30],
+            }) : L.divIcon({
+              html: `<div class="view-svg-l-router">
+															<p class="text-num">${i}</p>
+															<svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" x="0" y="0" viewBox="0 0 450 450" preserveAspectRatio="xMidYMid meet">
+															<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+															fill='#F7941D' stroke="none">
+															<path d="M2335 4944 c-600 -81 -1107 -450 -1367 -994 -149 -312 -203 -703
+															-139 -991 129 -573 619 -1434 1423 -2501 98 -130 192 -248 209 -262 64 -55
+															153 -46 216 20 56 58 397 513 566 756 686 984 1048 1719 1073 2183 21 377
+															-125 822 -374 1135 -65 81 -215 231 -297 295 -369 290 -850 422 -1310 359z"/>
+															</g>
+															</svg>
+													</div>`,
+              className: "",
+              // iconSize: [30, 80],
+              iconAnchor: [0, 40],
+            })
+          })
+        }
+      }).addTo(map);
+    }
+
+    function motor (){
+      L.Routing.control({
+        waypoints: [
+          L.latLng(points[2][0], points[2][1]),
+          L.latLng(points[3][0], points[3][1]),
+        ],
+        draggableWaypoints: false,
+        routeWhileDragging: false,
+        addWaypoints: false,
+        lineOptions: {
+          addWaypoints: false,
+          styles: [{color: '#009BDE', opacity: 0.5}]
+        },
+        createMarker: function (i, waypoint, n) {
+          return  L.marker(waypoint.latLng, {
+            icon:   (i === 0) ? L.divIcon({
+              html: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="30" height="30" x="0" y="0" viewBox="0 0 450 450" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><path fill="#acd5df" d="m248.5 255.475-15 15.784v193.743a51.21 51.21 0 0 0 8.825 28.741c2.944 4.342 9.406 4.342 12.351 0a51.21 51.21 0 0 0 8.825-28.741V271.259z" data-original="#acd5df" ></path><path fill="#93b7c0" d="M233.5 212v59.259c4.935.487 9.938 0 15 0s10.065.487 15 0V212z" data-original="#93b7c0"></path><path fill="#cc3245" d="M248.5 0v242c66.826 0 121-54.174 121-121S315.326 0 248.5 0z" data-original="#cc3245"></path><path fill="#ff3e3a" d="M339.5 121c0-66.826-40.742-121-91-121-66.826 0-121 54.174-121 121s54.174 121 121 121c50.258 0 91-54.174 91-121z" data-original="#ff3e3a"></path></g></svg>',
+              className: "",
+              // iconSize: [30, 80],
+              iconAnchor: [0, 30],
+            }) : L.divIcon({
+              html: `<div class="view-svg-l-router">
+															<p class="text-num">${i}</p>
+															<svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" x="0" y="0" viewBox="0 0 450 450" preserveAspectRatio="xMidYMid meet">
+															<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+															fill='#009BDE' stroke="none">
+															<path d="M2335 4944 c-600 -81 -1107 -450 -1367 -994 -149 -312 -203 -703
+															-139 -991 129 -573 619 -1434 1423 -2501 98 -130 192 -248 209 -262 64 -55
+															153 -46 216 20 56 58 397 513 566 756 686 984 1048 1719 1073 2183 21 377
+															-125 822 -374 1135 -65 81 -215 231 -297 295 -369 290 -850 422 -1310 359z"/>
+															</g>
+															</svg>
+													</div>`,
+              className: "",
+              // iconSize: [30, 80],
+              iconAnchor: [0, 40],
+            })
+          })
+        }
+
+      }).addTo(map);
+
+
+    }
+		
+	</script>
+
+</body>
+</html>
+
+

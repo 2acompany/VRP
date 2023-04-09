@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>بهینه سازی مسیر</title>
+	
+	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+	
+	<link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	
+	<div class="main-page">
+		<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary mb-5">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+								aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+						</li>
+					</ul>
+				</div>
+				
+<!--				<div class="switch-map">-->
+<!--					<label>نشان</label>-->
+<!--					<div class="form-check form-switch">-->
+<!--						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>-->
+<!--					</div>-->
+<!--					<label>پارسی مپ</label>-->
+<!--				</div>-->
+				
+				<a  href="./../geocoding/parsiMap.html">پارسی مپ</a>
+			
+			
+			</div>
+		</nav>
+		
+		<div class="container">
+<!--			<div class="api-key">-->
+<!--				<div class="row">-->
+<!--					<div class="col-12 col-lg-6">-->
+<!--						<input type="text" placeholder="api key">-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;light">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>اضافه کردن</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;primary">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>آپلود اکسل</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+			
+			<div class="desc">
+				<p>شما میتوانید با وارد کردن آدرس خود محل آن را در نقشه پیدا کنید.</p>
+			</div>
+			
+			<div class="row mb-3">
+				<div class="col-12">
+					<div class="search-address">
+						<input type="text" placeholder="جستجو آدرس" required id="term">
+						<div class="btn--primary">
+							<button class="btn-fill" id="search" onclick="addressToGeo()">
+								<span>جستجو</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="map" id="mapGeo"></div>
+		
+		</div>
+	</div>
+	
+	
+	<script src="./../assets/js/jquery.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
+	
+	<script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	
+	
+	<script>
+		//init the map
+    var map = new L.Map('mapGeo', {
+      key: 'web.d311dafd01ac4f50822849fb047fb745',
+      center: [35.699739, 51.338097],
+      zoom: 14
+    });
+
+
+    //adding the marker to map
+    var marker = L.marker([35.699739, 51.338097]).addTo(map);
+    // centerLat.value = "35.699739";
+    // centerLng.value = "51.338097";
+    //on map binding
+    // myMap.on('click', addMarkerOnMap);
+    map.on('click', geoToAddress);
+
+    function geoToAddress(e) {
+      var params = {
+        headers: {
+          'Api-Key': 'service.8c667d9069564606b33ad1074e71dc40'
+        },
+      };
+      axios.get(`https://api.neshan.org/v5/reverse?lat=${e.latlng.lat}&lng=${e.latlng.lng}`, params)
+         .then(data => {
+           marker.setLatLng(e.latlng);
+           // myMap.flyTo([centerLat.value, centerLng.value], 12);
+           addMarkerOnMap(data.data.formatted_address)
+         }).catch(error => {
+        console.log(error.response);
+      });
+    }
+
+    function addressToGeo(e) {
+      var params = {
+        headers: {
+          'Api-Key': 'service.8c667d9069564606b33ad1074e71dc40'
+        },
+      };
+      var term = document.getElementById("term").value;
+			
+      axios.get(`https://api.neshan.org/v4/geocoding?address=${term}`, params)
+         .then(data => {
+           marker.setLatLng({
+             lat: data.data.location.y,
+             lng: data.data.location.x
+           });
+           map.flyTo([data.data.location.y, data.data.location.x], 14);
+           // myMap.flyTo([centerLat.value, centerLng.value], 12);
+           // addMarkerOnMap(data.data.formatted_address)
+         }).catch(error => {
+        console.log(error.response);
+      });
+    }
+
+    //on map click function
+    function addMarkerOnMap(e) {
+      marker.bindPopup(e).openPopup();
+    }
+
+    var searchMarkers = [];
+
+    //sending request to Search API
+    // function search() {
+    //   // restarting the markers
+    //   for (var j = 0; j < searchMarkers.length; j++) {
+    //     if (searchMarkers[j] != null) {
+    //       myMap.removeLayer(searchMarkers[j]);
+    //       searchMarkers[j] = null;
+    //     }
+    //   }
+    //   marker.setLatLng([centerLat.value, centerLng.value]);
+    //   //getting term value from input tag
+    //   var term = document.getElementById("term").value;
+    //   //making url
+    //   var url = `https://api.neshan.org/v1/search?term=${term}&lat=${centerLat.value}&lng=${centerLng.value}`;
+    //   //add your api key
+    //   var params = {
+    //     headers: {
+    //       'Api-Key': 'web.7507a57838394766a5a8de3bdbf175a0'
+    //     },
+    //   };
+    //   //sending get request
+    //   axios.get(url, params)
+    //      .then(data => {
+    //        document.getElementById("resualt").innerHTML = "";
+    //        if (data.data.count != 0) {
+    //          document.getElementById("panel").style = "height: 60%;"
+    //        } else {
+    //          document.getElementById("panel").style = "height: fit-content;"
+    //        }
+    //        document.getElementById("resultCount").textContent = `تعداد نتایج : ${data.data.count}`
+    //        //set center of map to marker location
+    //        console.log(data.data);
+    //        myMap.flyTo([centerLat.value, centerLng.value], 12);
+    //
+    //        //for every search resualt add marker
+    //        var i;
+    //        for (i = 0; i < data.data.count; i++) {
+    //          var info = data.data.items[i];
+    //          searchMarkers[i] = L.marker([info.location.y, info.location.x], {
+    //            icon: greenIcon,
+    //            title: info.title
+    //          }).addTo(myMap);
+    //          makeDiveResualt(data.data.items[i], i);
+    //        }
+    //
+    //
+    //      }).catch(error => {
+    //     document.getElementById("resualt").innerHTML = "";
+    //     document.getElementById("panel").style = "height: fit-content;"
+    //     document.getElementById("resultCount").textContent = `تعداد نتایج : 0`
+    //     console.log(error.response);
+    //   });
+    // }
+
+    function makeDiveResualt(data, index) {
+      var resultsDiv = document.getElementById("resualt");
+      var resultDiv = document.createElement("div");
+      resultDiv.onclick = function (e) {
+        myMap.flyTo([data.location.y, data.location.x], 16);
+        // searchMarkers[index].setIcon(redIcon);
+        // setTimeout(function(){
+        //     searchMarkers[index].setIcon(greenIcon);
+        // },4000);
+        for (var i = 0; i < searchMarkers.length; i++) {
+          if (i == geocoding) {
+            searchMarkers[i];
+            continue;
+          }
+          searchMarkers[i];
+        }
+
+      }
+      resultDiv.dir = "ltr";
+      var resultAddress = document.createElement("pre");
+      resultAddress.textContent = `title : ${data.title} \n Address : ${data.address} \n type : ${data.type}`;
+      resultAddress.style = `border: solid ${generateRandomColor()};`;
+      resultsDiv.appendChild(resultDiv);
+      resultDiv.appendChild(resultAddress);
+
+    }
+
+    //random color generator :))
+    function generateRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+	
+	</script>
+
+</body>
+</html>
+
+
+

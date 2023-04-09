@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>بهینه سازی مسیر</title>
+	
+	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
+	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+	<link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+	
+	<div class="main-page">
+		<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary mb-5">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+								aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				
+				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" href="./../routing/parsiMap.html">مسیریابی</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+						</li>
+					</ul>
+				</div>
+				
+				<!--				<div class="switch-map">-->
+				<!--					<label>نشان</label>-->
+				<!--					<div class="form-check form-switch">-->
+				<!--						<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>-->
+				<!--					</div>-->
+				<!--					<label>پارسی مپ</label>-->
+				<!--				</div>-->
+				
+				<a  href="./../routing/parsiMap.html">پارسی مپ</a>
+			
+			</div>
+		</nav>
+		
+		<div class="container">
+<!--			<div class="api-key">-->
+<!--				<div class="row">-->
+<!--					<div class="col-12 col-lg-6">-->
+<!--						<input type="text" placeholder="api key">-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;light">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>اضافه کردن</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-6 col-lg-3">-->
+<!--						<div class="btn&#45;&#45;primary">-->
+<!--							<button class="btn-fill">-->
+<!--								<span>آپلود اکسل</span>-->
+<!--							</button>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+			
+			<div class="desc">
+				<p>کوتاه ترین مسیر بین دو نقطه را محاسبه کنید.</p>
+			</div>
+			
+			<div class="map map-parsi" id="mapRouting"></div>
+			<!--			<div class="map map-neshan" id="mapRoutingNeshan"></div>-->
+		
+		</div>
+	</div>
+	
+	
+	<script src="./../assets/js/jquery.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
+	
+	<script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+	
+	
+	<script type="text/javascript">
+
+    //init the map
+    var map = new L.Map('mapRouting', {
+      key: 'web.d311dafd01ac4f50822849fb047fb745',
+      center: [35.699739, 51.338097],
+      zoom: 14
+    });
+		
+
+
+    // add legend
+    // ------------------------------
+    const legend = L.control({position: "bottomleft"});
+
+    legend.onAdd = function () {
+      let div = L.DomUtil.create("div", "description");
+      L.DomEvent.disableClickPropagation(div);
+      const text = "Try to move one of the markers";
+      div.insertAdjacentHTML("beforeend", text);
+      return div;
+    };
+
+    legend.addTo(map);
+
+    // --------------------------------------------------
+    // Routing
+
+    L.Routing.control({
+      waypoints: [
+        L.latLng(35.68783608590657, 51.42249584197999),
+        L.latLng(35.69137739442236, 51.42862415326818),
+      ],
+      routeWhileDragging: true,
+      addWaypoints: false,
+      lineOptions: {
+        styles: [{color: '#F7941D', opacity: 1}]
+      },
+      createMarker: function (i, waypoint, n) {
+        return  L.marker(waypoint.latLng, {
+          draggable: true,
+          icon: L.divIcon({
+            html: `<div class="view-svg-l-router">
+															<p class="text-num">${i+1}</p>
+															<svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" x="0" y="0" viewBox="0 0 450 450" preserveAspectRatio="xMidYMid meet">
+															<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+															fill='#F7941D' stroke="none">
+															<path d="M2335 4944 c-600 -81 -1107 -450 -1367 -994 -149 -312 -203 -703
+															-139 -991 129 -573 619 -1434 1423 -2501 98 -130 192 -248 209 -262 64 -55
+															153 -46 216 20 56 58 397 513 566 756 686 984 1048 1719 1073 2183 21 377
+															-125 822 -374 1135 -65 81 -215 231 -297 295 -369 290 -850 422 -1310 359z"/>
+															</g>
+															</svg>
+													</div>`,
+            className: "",
+            // iconSize: [30, 80],
+            iconAnchor: [0, 40],
+          })
+        })
+      }
+    }).addTo(map);
+
+
+
+
+
+    // document.getElementById('switch').addEventListener('change', (e) => {
+    //
+    //   const urlParsiMapCSS = 'https://cdn.parsimap.ir/third-party/leaflet/v1.7.1/mapbox-gl.css'
+    //   const urlParsiMapJS1 = './assets/js/parsiMap.min.js'
+    //   // const urlParsiMapJS2 = 'https://cdn.parsimap.ir/third-party/leaflet/plugins/parsimap-tile/v1.0.0/parsimap-tile.js'
+    // 	const urlNeshanCSS = 'https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css'
+    // 	const urlNeshanJS = './assets/js/neshan.min.js'
+    //
+    //   var linkElement = document.createElement("link");
+    //   linkElement.setAttribute("rel", "stylesheet");
+    //   linkElement.setAttribute("type", "text/css");
+    //
+    //   var scriptElement = document.createElement("script");
+    //   // scriptElement.setAttribute("type", "module");
+    //
+    //   let linkList = document.getElementsByTagName("link")
+    //   let scriptList = document.getElementsByTagName("script")
+    //
+    //   if(e.target.checked){
+    //
+    //     // for (const el of linkList) {
+    //     //   let includesLinkList = el['href'].includes('https://cdn.parsimap.ir')
+    //     //   includesLinkList && $(el).remove()
+    //     // }
+    //     for (const el of scriptList) {
+    //       let includesScriptList = el['src'].includes('parsiMap')
+    //       console.log('el', el)
+    //       includesScriptList && $(el).remove()
+    //     }
+    //
+    //     // linkElement.setAttribute("href", urlNeshanCSS);
+    //     // document.getElementsByTagName("head")[0].appendChild(linkElement);
+    //     scriptElement.setAttribute("src", urlNeshanJS);
+    //     document.getElementsByTagName("head")[0].appendChild(scriptElement);
+    //
+    //   }else{
+    //     // for (const el of linkList) {
+    //     //   let includesLinkList = el['href'].includes('https://static.neshan.org')
+    //     //   includesLinkList && $(el).remove()
+    //     // }
+    //     for (const el of scriptList) {
+    //       let includesScriptList = el['src'].includes('neshan')
+    //       console.log('el', el)
+    //       includesScriptList && $(el).remove()
+    //     }
+    //
+    //
+    //     // linkElement.setAttribute("href", urlParsiMapCSS);
+    //     // document.getElementsByTagName("head")[0].appendChild(linkElement)
+    //     scriptElement.setAttribute("src", urlParsiMapJS1);
+    //     document.getElementsByTagName("head")[0].appendChild(scriptElement);
+    //     // scriptElement.setAttribute("src", urlParsiMapJS2);
+    //     // document.getElementsByTagName("head")[0].appendChild(urlParsiMapJS2);
+    //   }
+    //
+    //   $( "#mapRouting" ).load(window.location.href + " #here" );
+    // })
+	
+	</script>
+
+</body>
+</html>
+

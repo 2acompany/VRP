@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+	<title>Vehicle Routing Problem (VRP) and Clustering Algorithm</title>
+</head>
+<body>
+	<h1>Vehicle Routing Problem (VRP) and Clustering Algorithm</h1>
+	<p>Welcome to our app that solves the Vehicle Routing Problem (VRP) using a clustering algorithm!</p>
+	<h2>What is the Vehicle Routing Problem?</h2>
+	<p>The Vehicle Routing Problem (VRP) is a combinatorial optimization problem where the goal is to minimize the total distance traveled by a fleet of vehicles in order to deliver goods or services to a set of customers.</p>
+	<h2>What is Clustering Algorithm?</h2>
+	<p>Clustering is the task of dividing the population or data points into a number of groups, such that data points in the same groups are more similar to other data points in the same group than those in other groups. It is widely used in machine learning and data analysis.</p>
+	<h2>How does our app work?</h2>
+	<p>Our app uses a clustering algorithm to group customers into clusters, and then solves the VRP for each cluster separately. This approach can be more efficient than solving the VRP for all customers at once, especially for large datasets.</p>
+	<h2>Try it now!</h2>
+	<p>Upload your dataset and let our app optimize your vehicle routing problem! Click the button below to get started.</p>
+	<a href="/upload" class="button">Upload Dataset</a>
+    <a href="./../matrix.html">Go to Index</a>
+
+</body>
+</html>

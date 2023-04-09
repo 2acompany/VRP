@@ -47,6 +47,13 @@ class VRPModelInputRandomLocation(BaseModel):
 #     data = request.json
 #     # process the request data
 #     return jsonify({})
+@app.route('/')
+def home():
+    return render_template('vrp.html')
+@app.route('/matrix')
+def index():
+    return render_template('matrix.html')
+
 
 @app.route('/vehicle_routes', methods=['POST'])
 @cross_origin(supports_credentials=True)

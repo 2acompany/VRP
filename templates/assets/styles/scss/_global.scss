@@ -1,0 +1,291 @@
+::-moz-selection { /* Code for Firefox */
+  color: $white;
+  background: $themeYellow;
+}
+
+::selection {
+  color: $white;
+  background: $themeYellow;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $themeYellow;
+  border-radius: 10px;
+}
+
+p,span,a, label{
+  font-family: $font-1-r;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+button{
+  font-family: $font-1-r;
+}
+
+input {
+  width: 100%;
+  border: 1px solid $gray-4;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: right;
+  font-family: $font-1-r !important;
+
+  &::placeholder{
+    font-family: $font-1-r;
+  }
+}
+
+
+.col-12{
+  margin-bottom: 10px;
+}
+
+.leaflet-popup-content{
+  font-family: $font-1-r;
+}
+
+.leaflet-right{
+  display: none;
+}
+
+.navbar-nav{
+  .nav-item{
+    .active{
+      color: $themeBlue !important;
+    }
+  }
+}
+
+.switch-map{
+  display: flex;
+  align-items: center;
+
+  .form-switch{
+    padding-left: 3em;
+  }
+}
+
+.btn--light {
+  //width: 100%;
+  .btn-fill{
+    background: $gray-2;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $gray-2;
+    //width: 100%;
+
+    i{
+      color: $txt;
+      margin-right: 10px;
+    }
+    span{
+      color: $txt;
+    }
+  }
+  .btn-empty{
+    background: transparent;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $gray-4;
+    //width: 100%;
+
+    i{
+      color: $txt;
+      margin-right: 10px;
+    }
+    span{
+      color: $txt;
+    }
+  }
+}
+
+.btn--primary {
+  //width: 100%;
+  .btn-fill{
+    background: $themeBlue;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $themeBlue;
+    //width: 100%;
+
+    i{
+      color: $white;
+      margin-right: 10px;
+    }
+    span{
+      color: $white;
+    }
+  }
+}
+
+.btn--success {
+  //width: 100%;
+  .btn-fill{
+    background: $shopex;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $shopex;
+    //width: 100%;
+
+    i{
+      color: $white;
+      margin-right: 10px;
+    }
+    span{
+      color: $white;
+    }
+  }
+}
+
+.btn--error {
+  //width: 100%;
+  .btn-fill{
+    background: $delete;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $delete;
+    //width: 100%;
+
+    i{
+      color: $white;
+      margin-right: 10px;
+    }
+    span{
+      color: $white;
+    }
+  }
+}
+
+.btn--yellow {
+  //width: 100%;
+  .btn-fill{
+    background: $themeYellow;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $themeYellow;
+    //width: 100%;
+
+    i{
+      color: $white;
+      margin-right: 10px;
+    }
+    span{
+      color: $white;
+    }
+  }
+  .btn-empty{
+    background: transparent;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $themeYellow;
+    //width: 100%;
+
+    i{
+      color: $themeYellow;
+      margin-right: 10px;
+    }
+    span{
+      color: $themeYellow;
+    }
+  }
+
+}
+
+
+.form-check-input:checked {
+  background-color: $themeBlue !important;
+  border-color: $themeBlue !important;
+}
+
+
+
+.loader{
+  background: $gray-2;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1200;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  flex-direction: column;
+
+  .progress{
+    height: 100px;
+    width: 100px;
+    border: 10px solid $themeBlue;
+    //margin: 200px auto;
+    border-radius: 50%;
+    border-top: 10px solid $themeYellow;
+    animation: spin 2s linear infinite;
+    background: $gray-2;
+    margin-bottom: 20px;
+  }
+
+  @keyframes spin{
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+
+}
+
+
+.view-svg-l-router {
+  position: relative;
+
+  .text-num {
+    position: absolute;
+    top: 9px;
+    right: 13px;
+    left: 0;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    color: $white;
+    font-family: $font-1-r;
+
+  }
+}
