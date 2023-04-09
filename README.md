@@ -48,3 +48,11 @@ call nssm set VRPApplicationPython AppRotateBytes 1048576
 call sc start VRPApplicationPython
 nssm edit  VRPApplicationPython
 sc query VRPApplicationPython
+
+
+#set Venv on server
+ changed the file :
+.venv/pyvenv.cfg 
+
+Inside it modify this variable
+home = C:\Python39 to python dirctory 

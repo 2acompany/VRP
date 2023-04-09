@@ -28,17 +28,23 @@ class VRPModelInputRandomLocation(BaseModel):
     depot: int
     
 @app.route('/vehicle_routes', methods=['POST'])
-@cross_origin(supports_credentials=True)
 def vehicle_routes():
     data = request.json
     distance_matrix = data['distance_matrix']
     num_vehicles = data['num_vehicles']
     depot = 0
-    routes = VRPTimeLimitAPI.main(distance_matrix, num_vehicles, depot)
-    return jsonify({"routes": routes})
+    routes = VRPTimeLimitAPI(distance_matrix, num_vehicles, depot)
+    response = jsonify({"routes": routes})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add("Access-Control-Expose-Headers", "Content-Type")
+    response.headers.add("Access-Control-Max-Age", "3600")
+    response.headers.add("Access-Control-Allow-Methods", "POST")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+    return response
+
 
 @app.route('/vehicle_routes_random_location', methods=['POST'])
-@cross_origin(supports_credentials=True)
 def vehicle_routes_random_location():
 
     data = request.json
@@ -46,10 +52,16 @@ def vehicle_routes_random_location():
     num_vehicles = data['num_vehicles']
     depot = 0
     routes = VRPTimeLimitAPIRandom.main(num_locations, num_vehicles, depot)
-    return jsonify({"routes": routes})
+    response = jsonify({"routes": routes})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add("Access-Control-Expose-Headers", "Content-Type")
+    response.headers.add("Access-Control-Max-Age", "3600")
+    response.headers.add("Access-Control-Allow-Methods", "POST")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
+    return response
     
 @app.route("/randomnodes")
-@cross_origin(supports_credentials=True)
 def map():
     return MapFolium.map()
 
