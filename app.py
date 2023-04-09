@@ -47,11 +47,13 @@ class VRPModelInputRandomLocation(BaseModel):
 #     data = request.json
 #     # process the request data
 #     return jsonify({})
+def matrix():
+    return render_template('matrix.html')
 @app.route('/')
 def home():
     return render_template('vrp.html')
 @app.route('/matrix')
-def index():
+def matrix():
     return render_template('matrix.html')
 
 

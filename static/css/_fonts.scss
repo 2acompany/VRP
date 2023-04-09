@@ -1,0 +1,32 @@
+//--------- IranSansNum --------
+@font-face {
+  font-family: "I_sans_num";
+  src: url("../../fonts/IRANSansNum.ttf") format("truetype");
+}
+
+//--------- IranSans --------
+@font-face {
+  font-family: "I_sans_medium";
+  src: url("../../fonts/IranSans/medium/IRANSans.ttf") format("truetype"),
+  url("../../fonts/IranSans/medium/IRANSans.woff") format("woff"),
+  url("../../fonts/IranSans/medium/IRANSans.woff2") format("woff2");
+}
+@font-face {
+  font-family: "I_sans_regular";
+  src: url("../../fonts/IranSans/regular/IRANSans.ttf") format("truetype"),url("../../fonts/IranSans/regular/IRANSans.eot") format("eot"),
+  url("../../fonts/IranSans/regular/IRANSans.woff") format("woff"),
+  url("../../fonts/IranSans/regular/IRANSans.woff2") format("woff2");
+}
+@font-face {
+  font-family: "I_sans_bold";
+  src: url("../../fonts/IranSans/bold/IRANSans.ttf") format("truetype"),
+  url("../../fonts/IranSans/bold/IRANSans.eot") format("eot"),
+  url("../../fonts/IranSans/bold/IRANSans.woff") format("woff"),
+  url("../../fonts/IranSans/bold/IRANSans.woff2") format("woff2")
+}
+@font-face {
+  font-family: "I_sans_light";
+  src: url("../../fonts/IranSans/light/IRANSans.ttf") format("truetype"),url("../../fonts/IranSans/light/IRANSans.eot") format("eot"),
+  url("../../fonts/IranSans/light/IRANSans.woff") format("woff"),
+  url("../../fonts/IranSans/light/IRANSans.woff2") format("woff2")
+}
