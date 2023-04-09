@@ -14,7 +14,7 @@ import VRPTimeLimitAPIRandom
 import MapFolium 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, support_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 class VRPModelInput(BaseModel):
@@ -28,7 +28,7 @@ class VRPModelInputRandomLocation(BaseModel):
     depot: int
     
 @app.route('/vehicle_routes', methods=['POST'])
-@cross_origin()
+@cross_origin(supports_credentials=True)
 def vehicle_routes():
     data = request.json
     distance_matrix = data['distance_matrix']
@@ -38,7 +38,7 @@ def vehicle_routes():
     return jsonify({"routes": routes})
 
 @app.route('/vehicle_routes_random_location', methods=['POST'])
-@cross_origin()
+@cross_origin(supports_credentials=True)
 def vehicle_routes_random_location():
 
     data = request.json
@@ -49,7 +49,7 @@ def vehicle_routes_random_location():
     return jsonify({"routes": routes})
     
 @app.route("/randomnodes")
-@cross_origin()
+@cross_origin(supports_credentials=True)
 def map():
     return MapFolium.map()
 
