@@ -51,7 +51,7 @@ class VRPModelInputRandomLocation(BaseModel):
 #     return render_template('matrix.html')
 @app.route('/')
 def home():
-    return render_template('vrp.html')
+    return render_template('routing/parsiMap.html')
 
 # geocoding parsimap route
 @app.route('/geocoding/parsiMap')
