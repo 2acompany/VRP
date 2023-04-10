@@ -6,15 +6,15 @@
 	
 	<title>بهینه سازی مسیر</title>
 	
-	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/fontawesome/all.min.css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/fontawesome/all.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.rtl.min.css') }}" rel="stylesheet">
 	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
@@ -30,6 +30,7 @@
 	
 	<div class="loader" id="loader">
 		<div class="progress"></div>
+		<h4 id="countText"></h4>
 	</div>
 	
 	<div class="main-page">
@@ -41,21 +42,21 @@
 				</button>
 				
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
+							<a class="nav-link" href="/routing/parsiMap">مسیریابی</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+							<a class="nav-link active" href="/router/parsiMap">بهینه سازی مسیر</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link " href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+							<a class="nav-link" href="/geocoding/parsiMap">مختصات نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+							<a class="nav-link" href="/matching/parsiMap">تطبیق نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+							<a class="nav-link" href="/matrix">ماتریس نقشه</a>
 						</li>
 					</ul>
 				</div>
@@ -68,11 +69,11 @@
 				<!--					<label>پارسی مپ</label>-->
 				<!--				</div>-->
 				
-				<a href="./../router/neshan.html">نشان</a>
+				<a href="/router/neshan">نشان</a>
 			</div>
 		</nav>
 		
-		<div class="container">
+    <div class="container">
 			<div class="api-key">
 				<div class="row">
 					<div class="col-12 col-lg-6">
@@ -208,17 +209,19 @@
 	</div>
 	
 	
-	<script src="./../assets/js/jquery.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
-	
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.esm.min.js') }}"></script>
+  <script type="module" src="{{ url_for('static', filename='js/markerCluster.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/routingMachine.js') }}"></script>
+
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://cdn.parsimap.ir/third-party/leaflet/plugins/parsimap-tile/v1.0.0/parsimap-tile.js"></script>
 	<!--	<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>-->
 	<!--	<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>-->
-	<script src="./../assets/js/markerCluster.js"></script>
-	<script src="./../assets/js/routingMachine.js"></script>
+	<!-- <script src="./../assets/js/markerCluster.js"></script> -->
+	<!-- <script src="./../assets/js/routingMachine.js"></script> -->
 	<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.18.12/package/dist/xlsx.full.min.js"></script>
 	
 	
@@ -371,12 +374,21 @@
       '#006400',
     ]
 
+
+    let count = 0
+    let time = 180000
+    let timOUT
+    let present = 0
+
     let addMarker = []
 
     let vehicleRoute = []
     let vehiclePolygon = []
 
     let markers = [];
+    let markers1 = [];
+    let listMarker = []
+    let listMarker1 = []
 
     function vehicleMethod(e) {
       removeRouting()
@@ -433,7 +445,7 @@
             fillColor: colors[index1],
             fillOpacity: 0.5,
           }).addTo(map1);
-
+					
           vehiclePolygon.push(polygonControl)
 
         }
@@ -579,8 +591,14 @@
       for (const marker of markers) {
         map.removeLayer(marker)
       }
+      for (const marker of markers1) {
+        map1.removeLayer(marker)
+      }
       addMarker = []
       markers = []
+      markers1 = []
+      listMarker = []
+      listMarker1 = []
     }
 
     function handlerUploadExcel() {
@@ -607,19 +625,9 @@
     })
 
     map.on('click', handlerAddMarker);
-
-    let listMarker = []
-
+		
     function handlerAddMarker(e) {
-      // document.getElementById('num_locations').setAttribute('disabled', 'disabled');
-      // const icon = L.divIcon({
-      //   className: "marker",
-      //   html: svgTemplate,
-      //   iconSize: [40, 40],
-      //   iconAnchor: [12, 24],
-      //   popupAnchor: [7, -16]
-      // });
-			
+
       let itemMarkers = new L.marker([e.latlng.lat, e.latlng.lng], {
         icon: L.divIcon({
           html: `<div class="view-svg-l-router">
@@ -639,10 +647,32 @@
           iconAnchor: [0, 40],
         })
       }).addTo(map);
+      let itemMarkers1 = new L.marker([e.latlng.lat, e.latlng.lng], {
+        icon: L.divIcon({
+          html: `<div class="view-svg-l-router">
+															<p class="text-num">${listMarker1.length + 1}</p>
+															<svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" x="0" y="0" viewBox="0 0 450 450" preserveAspectRatio="xMidYMid meet">
+															<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+															fill='#009BDE' stroke="none">
+															<path d="M2335 4944 c-600 -81 -1107 -450 -1367 -994 -149 -312 -203 -703
+															-139 -991 129 -573 619 -1434 1423 -2501 98 -130 192 -248 209 -262 64 -55
+															153 -46 216 20 56 58 397 513 566 756 686 984 1048 1719 1073 2183 21 377
+															-125 822 -374 1135 -65 81 -215 231 -297 295 -369 290 -850 422 -1310 359z"/>
+															</g>
+															</svg>
+													</div>`,
+          className: "",
+          // iconSize: [30, 80],
+          iconAnchor: [0, 40],
+        })
+      }).addTo(map1);
 
 
       markers.push(itemMarkers);
       listMarker.push(itemMarkers);
+      markers1.push(itemMarkers1);
+      listMarker1.push(itemMarkers);
+
       addMarker.push([
         e.latlng.lat, e.latlng.lng
       ])
@@ -650,6 +680,7 @@
     }
 
     function handlerSubmitLocation() {
+      handlerCounter()
       // const num_locations = document.getElementById('num_locations').value
       const num_vehicles = document.getElementById('num_vehicles').value
       if (addMarker.length > 0) {
@@ -680,12 +711,12 @@
              "Content-Type": "application/x-www-form-urlencoded",
            }
          })
-      // axios.get(`https://api.parsimap.ir/direction/distance-matrix?key=p1c9f614aca0364596a8d3bfbdd24552b3cc465c5f&origins=${origins}&destinations=${origins}&durations=true&travel_mode=driving&request_id=false&traffic=true`)
+         // axios.get(`https://api.parsimap.ir/direction/distance-matrix?key=p1c9f614aca0364596a8d3bfbdd24552b3cc465c5f&origins=${origins}&destinations=${origins}&durations=true&travel_mode=driving&request_id=false&traffic=true`)
          .then(data => {
            handlerGetRoute(data.data.durations)
          }).catch(error => {
-        document.getElementById('loader').style.display = "none"
         console.log(error.response);
+        handlerStopInterval()
       });
     }
 
@@ -709,18 +740,21 @@
         "depot": 0
       })
          .then(data => {
-           document.getElementById('loader').style.display = "none"
            handlerShowLocationVehicle(data.data.routes)
+           handlerStopInterval()
            // console.log('data.routes', data)
          }).catch(error => {
-        document.getElementById('loader').style.display = "none"
         console.log(error.response);
+        handlerStopInterval()
       });
     }
 
     function handlerShowLocationVehicle(e) {
       for (const marker of markers) {
         map.removeLayer(marker)
+      }
+      for (const marker of markers1) {
+        map1.removeLayer(marker)
       }
       let lists = []
       for (const el of e) {
@@ -734,6 +768,35 @@
       }
       vehicleMethod(lists)
     }
+
+
+    function handlerCounter() {
+      timOUT = setInterval(() => {
+        if (count < time) {
+          count += 1800
+          present = present + 1
+          $('#countText').text('%' + ' ' + (present + 1))
+        } else if (count == time) {
+          count = 0
+          present = 0
+        } else {
+          handlerStopInterval()
+        }
+      }, 1000)
+    }
+
+    function handlerStopInterval() {
+      // $('#countText').text('%')
+      // $('#countText').text('%' + ' ' + 100)
+      setTimeout(() => {
+        document.getElementById('loader').style.display = "none"
+        clearInterval(timOUT)
+        count = 0
+        present = 0
+      }, 1000)
+    }
+		
+	
 	
 	</script>
 

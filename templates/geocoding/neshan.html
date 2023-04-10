@@ -5,15 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<title>بهینه سازی مسیر</title>
-	
-	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+  
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/fontawesome/all.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.rtl.min.css') }}" rel="stylesheet">
 	
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
@@ -33,19 +34,19 @@
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
+							<a class="nav-link" href="/routing/parsiMap">مسیریابی</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+							<a class="nav-link" href="/router/parsiMap">بهینه سازی مسیر</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+							<a class="nav-link active" href="/geocoding/parsiMap">مختصات نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+							<a class="nav-link" href="/matching/parsiMap">تطبیق نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+							<a class="nav-link" href="/matrix">ماتریس نقشه</a>
 						</li>
 					</ul>
 				</div>
@@ -58,62 +59,70 @@
 <!--					<label>پارسی مپ</label>-->
 <!--				</div>-->
 				
-				<a  href="./../geocoding/parsiMap.html">پارسی مپ</a>
+				<a  href="/geocoding/parsiMap">پارسی مپ</a>
 			
 			
 			</div>
 		</nav>
 		
 		<div class="container">
-<!--			<div class="api-key">-->
-<!--				<div class="row">-->
-<!--					<div class="col-12 col-lg-6">-->
-<!--						<input type="text" placeholder="api key">-->
-<!--					</div>-->
-<!--					<div class="col-12 col-md-6 col-lg-3">-->
-<!--						<div class="btn&#45;&#45;light">-->
-<!--							<button class="btn-fill">-->
-<!--								<span>اضافه کردن</span>-->
-<!--							</button>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="col-12 col-md-6 col-lg-3">-->
-<!--						<div class="btn&#45;&#45;primary">-->
-<!--							<button class="btn-fill">-->
-<!--								<span>آپلود اکسل</span>-->
-<!--							</button>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-			
-			<div class="desc">
-				<p>شما میتوانید با وارد کردن آدرس خود محل آن را در نقشه پیدا کنید.</p>
-			</div>
-			
-			<div class="row mb-3">
-				<div class="col-12">
-					<div class="search-address">
-						<input type="text" placeholder="جستجو آدرس" required id="term">
-						<div class="btn--primary">
-							<button class="btn-fill" id="search" onclick="addressToGeo()">
-								<span>جستجو</span>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="map" id="mapGeo"></div>
-		
-		</div>
+      <!--			<div class="api-key">-->
+      <!--				<div class="row">-->
+      <!--					<div class="col-12 col-lg-6">-->
+      <!--						<input type="text" placeholder="api key">-->
+      <!--					</div>-->
+      <!--					<div class="col-12 col-md-6 col-lg-3">-->
+      <!--						<div class="btn&#45;&#45;light">-->
+      <!--							<button class="btn-fill">-->
+      <!--								<span>اضافه کردن</span>-->
+      <!--							</button>-->
+      <!--						</div>-->
+      <!--					</div>-->
+      <!--					<div class="col-12 col-md-6 col-lg-3">-->
+      <!--						<div class="btn&#45;&#45;primary">-->
+      <!--							<button class="btn-fill">-->
+      <!--								<span>آپلود اکسل</span>-->
+      <!--							</button>-->
+      <!--						</div>-->
+      <!--					</div>-->
+      <!--				</div>-->
+      <!--			</div>-->
+            
+            <div class="desc">
+              <p>شما میتوانید با وارد کردن آدرس خود محل آن را در نقشه پیدا کنید.</p>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-12">
+                <div class="search-address">
+                  <input type="text" placeholder="مثال: تهران، بزرگراه یادگار امام، ..." required id="term">
+                  <div class="btn--primary">
+                    <button class="btn-fill" id="search" onclick="addressToGeo()">
+                      <span>جستجو</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <h5>توجه: به فاصله ها و علامت (،) که در مثال بالا آمده است دقت فرمایید</h5>
+              </div>
+            </div>
+            
+            <div class="map" id="mapGeo"></div>
+            
+            <div class="latlng">
+              <p>lat: <span id="latCenter"></span></p>
+              <p>lng: <span id="lngCenter"></span></p>
+            </div>
+            
+          </div>
 	</div>
 	
 	
-	<script src="./../assets/js/jquery.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.esm.min.js') }}"></script>
 	
 	<script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -145,6 +154,9 @@
       axios.get(`https://api.neshan.org/v5/reverse?lat=${e.latlng.lat}&lng=${e.latlng.lng}`, params)
          .then(data => {
            marker.setLatLng(e.latlng);
+
+           $('#latCenter').text(e.latlng.lat)
+           $('#lngCenter').text(e.latlng.lng)
            // myMap.flyTo([centerLat.value, centerLng.value], 12);
            addMarkerOnMap(data.data.formatted_address)
          }).catch(error => {
@@ -162,6 +174,8 @@
 			
       axios.get(`https://api.neshan.org/v4/geocoding?address=${term}`, params)
          .then(data => {
+           $('#latCenter').text(data.data.location.y)
+           $('#lngCenter').text(data.data.location.x)
            marker.setLatLng({
              lat: data.data.location.y,
              lng: data.data.location.x

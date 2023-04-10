@@ -6,15 +6,15 @@
 	
 	<title>بهینه سازی مسیر</title>
 	
-	<link href="./../assets/styles/scss/main.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/fontawesome/all.min.css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-grid.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-reboot.rtl.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.min.css" type="text/css" rel="stylesheet">
-	<link href="./../assets/styles/css/bootstrap/bootstrap-utilities.rtl.min.css" type="text/css" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/fontawesome/all.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-grid.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-reboot.rtl.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/bootstrap/bootstrap-utilities.rtl.min.css') }}" rel="stylesheet">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
@@ -37,19 +37,19 @@
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
+							<a class="nav-link" href="/routing/parsiMap">مسیریابی</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
+							<a class="nav-link" href="/router/parsiMap">بهینه سازی مسیر</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../geocoding/parsiMap.html">مختصات نقشه</a>
+							<a class="nav-link" href="/geocoding/parsiMap">مختصات نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="./../matching/parsiMap.html">تطبیق نقشه</a>
+							<a class="nav-link active" href="/matching/parsiMap">تطبیق نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
+							<a class="nav-link" href="/matrix">ماتریس نقشه</a>
 						</li>
 					</ul>
 				</div>
@@ -62,7 +62,7 @@
 				<!--					<label>پارسی مپ</label>-->
 				<!--				</div>-->
 				
-				<a  href="./../matching/parsiMap.html">پارسی مپ</a>
+				<a  href="/matching/parsiMap">پارسی مپ</a>
 			
 			</div>
 		</nav>
@@ -116,10 +116,10 @@
 	</div>
 	
 	
-	<script src="./../assets/js/jquery.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-	<script type="module" src="./../assets/js/bootstrap/bootstrap.esm.min.js"></script>
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.esm.min.js') }}"></script>
 	
 	<script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
 	

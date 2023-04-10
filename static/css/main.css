@@ -1,22 +1,22 @@
 @font-face {
   font-family: "I_sans_num";
-  src: url("../../fonts/IRANSansNum.ttf") format("truetype");
+  src: url("../fonts/IRANSansNum.ttf") format("truetype");
 }
 @font-face {
   font-family: "I_sans_medium";
-  src: url("../../fonts/IranSans/medium/IRANSans.ttf") format("truetype"), url("../../fonts/IranSans/medium/IRANSans.woff") format("woff"), url("../../fonts/IranSans/medium/IRANSans.woff2") format("woff2");
+  src: url("../fonts/IranSans/medium/IRANSans.ttf") format("truetype"), url("../fonts/IranSans/medium/IRANSans.woff") format("woff"), url("../fonts/IranSans/medium/IRANSans.woff2") format("woff2");
 }
 @font-face {
   font-family: "I_sans_regular";
-  src: url("../../fonts/IranSans/regular/IRANSans.ttf") format("truetype"), url("../../fonts/IranSans/regular/IRANSans.eot") format("eot"), url("../../fonts/IranSans/regular/IRANSans.woff") format("woff"), url("../../fonts/IranSans/regular/IRANSans.woff2") format("woff2");
+  src: url("../fonts/IranSans/regular/IRANSans.ttf") format("truetype"), url("../fonts/IranSans/regular/IRANSans.eot") format("eot"), url("../fonts/IranSans/regular/IRANSans.woff") format("woff"), url("../fonts/IranSans/regular/IRANSans.woff2") format("woff2");
 }
 @font-face {
   font-family: "I_sans_bold";
-  src: url("../../fonts/IranSans/bold/IRANSans.ttf") format("truetype"), url("../../fonts/IranSans/bold/IRANSans.eot") format("eot"), url("../../fonts/IranSans/bold/IRANSans.woff") format("woff"), url("../../fonts/IranSans/bold/IRANSans.woff2") format("woff2");
+  src: url("../fonts/IranSans/bold/IRANSans.ttf") format("truetype"), url("../fonts/IranSans/bold/IRANSans.eot") format("eot"), url("../fonts/IranSans/bold/IRANSans.woff") format("woff"), url("../fonts/IranSans/bold/IRANSans.woff2") format("woff2");
 }
 @font-face {
   font-family: "I_sans_light";
-  src: url("../../fonts/IranSans/light/IRANSans.ttf") format("truetype"), url("../../fonts/IranSans/light/IRANSans.eot") format("eot"), url("../../fonts/IranSans/light/IRANSans.woff") format("woff"), url("../../fonts/IranSans/light/IRANSans.woff2") format("woff2");
+  src: url("../fonts/IranSans/light/IRANSans.ttf") format("truetype"), url("../fonts/IranSans/light/IRANSans.eot") format("eot"), url("../fonts/IranSans/light/IRANSans.woff") format("woff"), url("../fonts/IranSans/light/IRANSans.woff2") format("woff2");
 }
 ::-moz-selection { /* Code for Firefox */
   color: #ffffff;
@@ -54,6 +54,10 @@ p, span, a, label {
   font-family: "I_sans_regular", sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "I_sans_medium", sans-serif;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -69,6 +73,9 @@ input {
   padding: 10px;
   text-align: right;
   font-family: "I_sans_regular", sans-serif !important;
+}
+input::-moz-placeholder {
+  font-family: "I_sans_regular", sans-serif;
 }
 input::placeholder {
   font-family: "I_sans_regular", sans-serif;
@@ -232,6 +239,7 @@ input::placeholder {
   justify-content: center;
   display: none;
   flex-direction: column;
+  font-family: "I_sans_regular", sans-serif;
 }
 .loader .progress {
   height: 100px;
@@ -369,6 +377,4 @@ input::placeholder {
 }
 .main-page .map-neshan {
   display: none;
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */

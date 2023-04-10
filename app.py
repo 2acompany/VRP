@@ -47,14 +47,53 @@ class VRPModelInputRandomLocation(BaseModel):
 #     data = request.json
 #     # process the request data
 #     return jsonify({})
-def matrix():
-    return render_template('matrix.html')
+# def matrix():
+#     return render_template('matrix.html')
 @app.route('/')
 def home():
     return render_template('vrp.html')
+
+# geocoding parsimap route
+@app.route('/geocoding/parsiMap')
+def geoParsiMap():
+    return render_template('geocoding/parsiMap.html')
+# geocoding neshan route
+@app.route('/geocoding/neshan')
+def geoNeshan():
+    return render_template('geocoding/neshan.html')
+
+# matching parsimap route
+@app.route('/matching/parsiMap')
+def matchingParsiMap():
+    return render_template('matching/parsiMap.html')
+# matching neshan route
+@app.route('/matching/neshan')
+def matchingNeshan():
+    return render_template('matching/neshan.html')
+
+# router parsimap route
+@app.route('/router/parsiMap')
+def routerParsiMap():
+    return render_template('router/parsiMap.html')
+# router neshan route
+@app.route('/router/neshan')
+def routerNeshan():
+    return render_template('router/neshan.html')
+
+# routing parsimap route
+@app.route('/routing/parsiMap')
+def routingParsiMap():
+    return render_template('routing/parsiMap.html')
+# routing neshan route
+@app.route('/routing/neshan')
+def routingNeshan():
+    return render_template('routing/neshan.html')
+
+# matrix route
 @app.route('/matrix')
 def matrix():
     return render_template('matrix.html')
+
 
 
 @app.route('/vehicle_routes', methods=['POST'])

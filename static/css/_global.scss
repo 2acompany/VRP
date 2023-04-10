@@ -33,6 +33,10 @@ p,span,a, label{
   font-family: $font-1-r;
 }
 
+h1, h2, h3, h4, h5, h6{
+  font-family: $font-1-m;
+}
+
 a{
   text-decoration: none !important;
 }
@@ -251,6 +255,7 @@ input {
   justify-content: center;
   display: none;
   flex-direction: column;
+  font-family: $font-1-r;
 
   .progress{
     height: 100px;
