@@ -26,7 +26,7 @@ class VRPModelInputRandomLocation(BaseModel):
     num_locations: int
     num_vehicles: int
     depot: int
-    
+# Incase you want to use this API in a third party app   
 # @app.route('/vehicle_routes', methods=['POST'])
 # def vehicle_routes():
 #     data = request.json
@@ -42,13 +42,7 @@ class VRPModelInputRandomLocation(BaseModel):
 #     response.headers.add("Access-Control-Allow-Methods", "POST")
 #     response.headers.add("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
 #     return response
-# @app.route('/vehicle_routes', methods=['POST'])
-# def vehicle_routes():
-#     data = request.json
-#     # process the request data
-#     return jsonify({})
-# def matrix():
-#     return render_template('matrix.html')
+# 
 @app.route('/')
 def home():
     return render_template('routing/parsiMap.html')
