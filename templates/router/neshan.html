@@ -29,7 +29,7 @@
 		<h4 id="countText"></h4>
 	</div>
 	
-	<div class="main-page">
+  <div class="main-page">
 		<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary mb-5">
 			<div class="container-fluid">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
@@ -38,21 +38,21 @@
 				</button>
 				
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link" href="/routing/parsiMap">مسیریابی</a>
+							<a class="nav-link" href="./../routing/parsiMap.html">مسیریابی</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="/router/parsiMap">بهینه سازی مسیر</a>
+							<a class="nav-link active" href="./../router/parsiMap.html">بهینه سازی مسیر</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/geocoding/parsiMap">مختصات نقشه</a>
+							<a class="nav-link" href="./../geocoding/parsiMap.html">مختصات نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/matching/parsiMap">تطبیق نقشه</a>
+							<a class="nav-link" href="./../matching/parsiMap.html">تطبیق نقشه</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/matrix">ماتریس نقشه</a>
+							<a class="nav-link" href="./../matrix.html">ماتریس نقشه</a>
 						</li>
 					</ul>
 				</div>
@@ -65,7 +65,7 @@
 				<!--					<label>پارسی مپ</label>-->
 				<!--				</div>-->
 				
-				<a href="/router/parsiMap">پارسی مپ</a>
+				<a href="./../router/parsiMap.html">پارسی مپ</a>
 			
 			</div>
 		</nav>
@@ -200,11 +200,12 @@
 			<div class="map" id="mapRouter1"></div>
 		
 		</div>
-
 	</div>
 	
 	
 	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.min.js') }}"></script>
 	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 	<script type="module" src="{{ url_for('static', filename='js/bootstrap/bootstrap.esm.min.js') }}"></script>
@@ -718,7 +719,7 @@
 
     function handlerGetRoute(e) {
       const num_vehicles = document.getElementById('num_vehicles').value
-      axios.post(`http://localhost:5000/vehicle_routes`, {
+      axios.post(`${BaseURL()}/vehicle_routes`, {
         "distance_matrix": handlerConvertSecondToMinutes(e),
         "num_vehicles": Number(num_vehicles),
         "depot": 0
